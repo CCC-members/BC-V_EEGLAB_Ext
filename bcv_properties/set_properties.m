@@ -41,7 +41,8 @@ for i=1:length(frequencies)
 end
 
 disp("-->> Setting User properties");
-pred_folder = strcat('bcv_predefinition/',properties.run_bash_mode.predefinition_params);
+f_path          = fileparts(fileparts(mfilename('fullpath')));
+pred_folder     = fullfile(f_path,'bcv_predefinition',properties.run_bash_mode.predefinition_params);
 if(~isfolder(pred_folder))
    mkdir(pred_folder); 
 end
@@ -50,19 +51,21 @@ properties.module_param_files(1).file_path  = strcat(pred_folder,'/sensor_params
 properties.module_param_files(2).file_path  = strcat(pred_folder,'/activation_params.json');
 properties.module_param_files(3).file_path  = strcat(pred_folder,'/connectivity_params.json');
 properties.module_param_files(4).file_path  = strcat(pred_folder,'/spectral_params.json');
-pred_options                                = jsondecode(fileread(strcat('bcv_predefinition/pred_properties.json')));
+properties.module_param_files(5).file_path  = strcat(pred_folder,'/data_params.json');
+pred_options                                = jsondecode(fileread(fullfile(f_path,'bcv_predefinition/pred_properties.json')));
 pred_options.params.predefinition.option    = properties.run_bash_mode.predefinition_params;
 
 % saving property files
-saveJSON(pred_options,strcat('bcv_predefinition/pred_properties.json'));
-saveJSON(properties.general_params,strcat(pred_folder,'/general_params.json'));
-saveJSON(properties.sensor_params,strcat(pred_folder,'/sensor_params.json'));
-saveJSON(properties.activation_params,strcat(pred_folder,'/activation_params.json'));
-saveJSON(properties.connectivity_params,strcat(pred_folder,'/connectivity_params.json'));
-saveJSON(properties.spectral_params,strcat(pred_folder,'/spectral_params.json'));
+saveJSON(pred_options,fullfile(f_path,'bcv_predefinition/pred_properties.json'));
+saveJSON(properties.general_params,fullfile(pred_folder,'general_params.json'));
+saveJSON(properties.sensor_params,fullfile(pred_folder,'sensor_params.json'));
+saveJSON(properties.activation_params,fullfile(pred_folder,'activation_params.json'));
+saveJSON(properties.connectivity_params,fullfile(pred_folder,'connectivity_params.json'));
+saveJSON(properties.spectral_params,fullfile(pred_folder,'spectral_params.json'));
+saveJSON(properties.data_params,fullfile(pred_folder,'data_params.json'));
 
-properties = rmfield(properties,{'general_params','sensor_params','activation_params','connectivity_params','spectral_params'});
-saveJSON(properties,strcat(pred_folder,'/properties.json'));
+properties = rmfield(properties,{'general_params','sensor_params','activation_params','connectivity_params','spectral_params','data_params'});
+saveJSON(properties,fullfile(pred_folder,'properties.json'));
 
 end
 

@@ -1,10 +1,11 @@
 function [properties] = get_properties()
 try
-    pred_options = jsondecode(fileread(strcat('bcv_predefinition/pred_properties.json')));
+    f_path          = fileparts(fileparts(mfilename('fullpath')));
+    pred_options    = jsondecode(fileread(fullfile(f_path,'bcv_predefinition','pred_properties.json')));
     if(~isequal(pred_options.params.predefinition.option,'default'))
-        properties = jsondecode(fileread(strcat('bcv_predefinition/',pred_options.params.predefinition.option,'/properties.json')));
+        properties  = jsondecode(fileread(fullfile(f_path,'bcv_predefinition/',pred_options.params.predefinition.option,'/properties.json')));
     else
-        properties = jsondecode(fileread(strcat('app/properties.json')));
+        properties  = jsondecode(fileread(fullfile(f_path,'app/properties.json')));
     end
 catch ME
     fprintf(2,strcat('\nBC-V-->> Error: Loading the property files: \n'));
@@ -28,8 +29,8 @@ end
 param_files = properties.module_param_files;
 for i=1:length(param_files)
     try        
-        module_params                                   = jsondecode(fileread(param_files(i).file_path));
-        properties.(param_files(i).module_id)           = module_params;        
+        module_params                           = jsondecode(fileread(param_files(i).file_path));
+        properties.(param_files(i).module_id)   = module_params;        
     catch ME
         fprintf(2,strcat('\nBC-V-->> Error: Loading the property files: \n'));
         fprintf(2,strcat(ME.message,'\n'));

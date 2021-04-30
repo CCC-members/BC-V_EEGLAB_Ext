@@ -18,9 +18,9 @@ for i=1:2:length(varargin)
     eval([varargin{i} '=  varargin{(i+1)};'])
 end
 % Remove fieldtrip path for override functions 
-warning off;
-rmpath(genpath(fullfile('external/fieldtrip')));
-warning on;
+f_path          = fileparts(fileparts(fileparts(mfilename('fullpath'))));
+addpath(genpath(fullfile(f_path,'external')));
+rmpath(genpath(fullfile(f_path,'external/fieldtrip')));
 % estimates the Cross Spectrum of the input M/EEG data
 if(exist('app_properties','var'))    
     [Svv_channel,F,Nseg,PSD] = xspectrum(data, Fs, Fm , deltaf, varf, Nw, 'app_properties', app_properties); 

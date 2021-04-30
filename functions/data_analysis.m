@@ -7,7 +7,7 @@ if(isequal(properties.analysis_level,1))
     %%
     %% Preparing params
     %%
-    data    = subject.data;
+    data    = subject.MEEG.data;
     Fs      = properties.spectral_params.samp_freq.value;       % sampling frequency
     Fm      = properties.spectral_params.max_freq.value;        % maximum frequency
     deltaf  = properties.spectral_params.freq_resol.value;      % frequency resolution
@@ -21,7 +21,9 @@ if(isequal(properties.analysis_level,1))
     [Svv_channel,~,PSD,Nf,F,Nseg]           = cross_spectra(data,Fs,Fm,deltaf,subject.Ke,varf,Nw,'app_properties',properties);
     
     %% Adding fieltrip external functions
-    addpath(genpath('external/fieldtrip'));
+    f_path          = fileparts(fileparts(mfilename('fullpath')));
+    addpath(genpath(fullfile(f_path,'external')));
+    rmpath(genpath(fullfile(f_path,'external/MEG-ROI-nets')));
     ft_defaults
     
     %% Saving general variables for sensor level

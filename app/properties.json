@@ -52,6 +52,11 @@
             "description":"Define spectral_params. you can change the file and save different conbinations.",
             "module_id":"spectral_params",
             "file_path":"bcv_properties/spectral_params.json"
+        },
+        {
+            "description":"Define data_params. you can change the file and save different conbinations.",
+            "module_id":"data_params",
+            "file_path":"bcv_properties/data_params.json"
         }
     ]    
 }

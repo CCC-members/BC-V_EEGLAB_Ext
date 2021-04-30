@@ -7,4 +7,9 @@ bcv_predefinition/sensor
 bcv_predefinition/activation
 bcv_predefinition/connectivity
 bcv_predefinition/sen_activ
+<<<<<<< HEAD
 bcv_predefinition/activ_conn
+=======
+bcv_predefinition/activ_conn
+.gitignore*
+>>>>>>> 8f480b669d132374257ac08a109205c3624ae43b

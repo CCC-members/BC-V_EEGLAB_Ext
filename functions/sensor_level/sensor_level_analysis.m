@@ -70,7 +70,7 @@ cfg     = [];
 topo    = [];
 if(isequal(subject.modality,'MEG'))
     %% MEG topography
-    cfg.layout          = '4D248_helmet.mat';
+    cfg.layout          = properties.sensor_params.fieldtrip.layout.value;
     cfg.channel         = 'meg';
     cfg.markers         = '.';
     cfg.markersymbol    = '.';

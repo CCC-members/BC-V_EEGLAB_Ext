@@ -276,10 +276,13 @@ classdef BC_VARETA_guide < matlab.apps.AppBase
             if disable_grafics;  app.gener_DisablegraphicsSwitch.FontColor = 'b'; app.gener_DisablegraphicsSwitch.FontWeight = 'bold'; end
             use_gpu = properties.run_bash_mode.use_gpu;
             if use_gpu; app.gener_RuninGPUSwitch.Value = 'Yes'; else; app.gener_RuninGPUSwitch.Value = 'No'; end
-            count = gpuDeviceCount();
-            if(isequal(count,0)); app.gener_RuninGPUSwitch.Value = 'No'; end
-            if (isequal(app.gener_RuninGPUSwitch.Value,'Yes')); app.gener_RuninGPUSwitch.FontColor = 'b'; app.gener_RuninGPUSwitch.FontWeight = 'bold'; end
-            
+            try
+                count = gpuDeviceCount("available");
+                if(isequal(count,0)); app.gener_RuninGPUSwitch.Value = 'No'; end
+                if (isequal(app.gener_RuninGPUSwitch.Value,'Yes')); app.gener_RuninGPUSwitch.FontColor = 'b'; app.gener_RuninGPUSwitch.FontWeight = 'bold'; end
+            catch
+                app.gener_RuninGPUSwitch.Value = 'No';
+            end
             run_by_trials = app.general_params.params.run_by_trial.value;
             if run_by_trials; app.gener_RunbytrialsSwitch.Value = 'Yes'; else; app.gener_RunbytrialsSwitch.Value = 'No'; end
             if run_by_trials; app.gener_RunbytrialsSwitch.FontColor = 'b'; app.gener_RunbytrialsSwitch.FontWeight = 'bold'; end
@@ -1062,35 +1065,43 @@ classdef BC_VARETA_guide < matlab.apps.AppBase
         function gener_RuninGPUSwitchValueChanged(app, event)
             value = app.gener_RuninGPUSwitch.Value;
             if(isequal(value,'Yes'))
-                count = gpuDeviceCount();
-                if(isequal(count,0))
+                try
+                    count = gpuDeviceCount();
+                    if(isequal(count,0))
+                        msgbox({'BC-VARETA Toolbox con not be run in GPU on this PC.',...
+                            'This PC do not have any GPU available.'},'Info');
+                        app.gener_RuninGPUSwitch.Value = 'No';
+                    else
+                        gpuinfo = gpuDevice();
+                        opts.Interpreter = 'tex';
+                        % Include the desired Default answer
+                        opts.Default = 'Yes';
+                        % Use the TeX interpreter to format the question
+                        quest = {strcat("GPU divice detected: ",gpuinfo.Name,"."), ...
+                            strcat("Total memory: ",num2str(gpuinfo.TotalMemory/(1024^3))," GB."), ...
+                            strcat("Available memory: ",num2str(gpuinfo.AvailableMemory/(1024^3))," GB."),...
+                            strcat("Note: The GPU process was tested with 6GB of memory."),...
+                            'Would you like to run BC-VARETA in GPU any way?'};
+                        answer = questdlg(quest,'Use GPU',...
+                            'Yes','No',opts);
+                        % Handle response
+                        switch answer
+                            case 'Yes'
+                                app.gener_RuninGPUSwitch.Value = 'Yes';
+                                app.gener_RuninGPUSwitch.FontColor = 'b';
+                                app.gener_RuninGPUSwitch.FontWeight = 'bold';
+                            case 'No'
+                                app.gener_RuninGPUSwitch.Value = 'No';
+                                app.gener_RuninGPUSwitch.FontColor = 'k';
+                                app.gener_RuninGPUSwitch.FontWeight = 'normal';
+                        end
+                    end
+                catch
+                    app.gener_RuninGPUSwitch.FontColor = 'k';
+                    app.gener_RuninGPUSwitch.FontWeight = 'normal';
                     msgbox({'BC-VARETA Toolbox con not be run in GPU on this PC.',...
                         'This PC do not have any GPU available.'},'Info');
                     app.gener_RuninGPUSwitch.Value = 'No';
-                else
-                    gpuinfo = gpuDevice();
-                    opts.Interpreter = 'tex';
-                    % Include the desired Default answer
-                    opts.Default = 'Yes';
-                    % Use the TeX interpreter to format the question
-                    quest = {strcat("GPU divice detected: ",gpuinfo.Name,"."), ...
-                        strcat("Total memory: ",num2str(gpuinfo.TotalMemory/(1024^3))," GB."), ...
-                        strcat("Available memory: ",num2str(gpuinfo.AvailableMemory/(1024^3))," GB."),...
-                        strcat("Note: The GPU process was tested with 6GB of memory."),...
-                        'Would you like to run BC-VARETA in GPU any way?'};
-                    answer = questdlg(quest,'Use GPU',...
-                        'Yes','No',opts);
-                    % Handle response
-                    switch answer
-                        case 'Yes'
-                            app.gener_RuninGPUSwitch.Value = 'Yes';
-                            app.gener_RuninGPUSwitch.FontColor = 'b';
-                            app.gener_RuninGPUSwitch.FontWeight = 'bold';
-                        case 'No'
-                            app.gener_RuninGPUSwitch.Value = 'No';
-                            app.gener_RuninGPUSwitch.FontColor = 'k';
-                            app.gener_RuninGPUSwitch.FontWeight = 'normal';
-                    end
                 end
             else
                 app.gener_RuninGPUSwitch.FontColor = 'k';

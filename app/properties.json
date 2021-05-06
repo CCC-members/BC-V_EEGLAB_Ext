@@ -1,19 +1,14 @@
 {
 	"generals" : {
-		"name" : "BC-VARETA ToolBox",
-		"version" : "v.960",
-		"version_date" : "03-19-2021",
-		"version_number" : 60,
-        "test_data_url": "https://lstneuro-my.sharepoint.com/:u:/g/personal/cc-lab_neuroinformatics-collaboratory_org/EQVy7Y3oL9lDqS4_aNwglCsBMngspSuQ6yVudDj1xUOhgA?download=1",
-		"url_check" : "https://raw.github.com/CCC-members/BC-VARETA_Toolbox/master/app/properties.json",
-        "base_url"  : "https://codeload.github.com/CCC-members/BC-VARETA_Toolbox/zip/master"        
+		"name" : "BC-VARETA EEGLAB Ext",
+		"version" : "v.90",
+		"version_date" : "05-06-2021",
+		"version_number" : 90,
+        "test_data_url": "",
+		"url_check" : "https://raw.github.com/CCC-members/BC-V_EEGLAB_Ext/master/app/properties.json",
+        "base_url"  : "https://codeload.github.com/CCC-members/BC-V_EEGLAB_Ext/zip/master"        
         },   
-	"externals" : {
-        "description":"No needed",
-		"name" : "brainstorm",
-		"url" : "unaurl"
-		},
-    "matlab_runtime": {
+	"matlab_runtime": {
          "description":"Do not change",
          "mac":"http://ssd.mathworks.com/supportfiles/downloads/R2018b/deployment_files/R2018b/installers/maci64/MCR_R2018b_maci64_installer.dmg.zip",
          "win":"http://ssd.mathworks.com/supportfiles/downloads/R2018b/deployment_files/R2018b/installers/win64/MCR_R2018b_win64_installer.exe",

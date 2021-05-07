@@ -53,12 +53,52 @@ classdef BC_VARETA_guide < matlab.apps.AppBase
         AddeventButton                  matlab.ui.control.Button
         ClearselectionButton            matlab.ui.control.Button
         SensorTab                       matlab.ui.container.Tab
-        FieldtriptemplateDropDownLabel  matlab.ui.control.Label
-        sens_FieldtriptemplateDropDown  matlab.ui.control.DropDown
         sens_LayoutdescriptionPanel     matlab.ui.container.Panel
         sens_UITable                    matlab.ui.control.Table
         RedefinelabelsButton            matlab.ui.control.Button
         ResetlabelsButton               matlab.ui.control.Button
+        sens_FieldtriptemplateDropDown  matlab.ui.control.DropDown
+        spect_FreqPanel                 matlab.ui.container.Panel
+        GridLayout                      matlab.ui.container.GridLayout
+        NameLabel                       matlab.ui.control.Label
+        ProcessLabel                    matlab.ui.control.Label
+        StartLabel                      matlab.ui.control.Label
+        EndLabel                        matlab.ui.control.Label
+        delta_startEditField            matlab.ui.control.NumericEditField
+        delta_endEditField              matlab.ui.control.NumericEditField
+        theta_startEditField            matlab.ui.control.NumericEditField
+        theta_endEditField              matlab.ui.control.NumericEditField
+        alpha_startEditField            matlab.ui.control.NumericEditField
+        alpha_endEditField              matlab.ui.control.NumericEditField
+        beta_startEditField             matlab.ui.control.NumericEditField
+        beta_endEditField               matlab.ui.control.NumericEditField
+        gamma1_startEditField           matlab.ui.control.NumericEditField
+        gamma1_endEditField             matlab.ui.control.NumericEditField
+        gamma2_startEditField           matlab.ui.control.NumericEditField
+        gamma2_endEditField             matlab.ui.control.NumericEditField
+        delta_runSwitch                 matlab.ui.control.Switch
+        theta_runSwitch                 matlab.ui.control.Switch
+        alpha_runSwitch                 matlab.ui.control.Switch
+        beta_runSwitch                  matlab.ui.control.Switch
+        gamma1_runSwitch                matlab.ui.control.Switch
+        gamma2_runSwitch                matlab.ui.control.Switch
+        DeltaLabel                      matlab.ui.control.Label
+        ThetaLabel                      matlab.ui.control.Label
+        AlphaLabel                      matlab.ui.control.Label
+        BetaLabel                       matlab.ui.control.Label
+        Gamma1Label                     matlab.ui.control.Label
+        Gamma2Label                     matlab.ui.control.Label
+        spect_OtherparamsPanel          matlab.ui.container.Panel
+        FreqresolutionLabel             matlab.ui.control.Label
+        spect_freq_resolEditField       matlab.ui.control.NumericEditField
+        SamplefreqLabel                 matlab.ui.control.Label
+        spect_sample_freqEditField      matlab.ui.control.NumericEditField
+        FreqmaxEditFieldLabel           matlab.ui.control.Label
+        spect_FreqmaxEditField          matlab.ui.control.NumericEditField
+        freq_gfiltvarEditFieldLabel     matlab.ui.control.Label
+        spect_freq_gfiltvarEditField    matlab.ui.control.NumericEditField
+        win_orderLabel                  matlab.ui.control.Label
+        spect_win_orderSlider           matlab.ui.control.Slider
         ActivationTab                   matlab.ui.container.Tab
         activ_MethodsPanel              matlab.ui.container.Panel
         SSSBLppLabel                    matlab.ui.control.Label
@@ -149,48 +189,6 @@ classdef BC_VARETA_guide < matlab.apps.AppBase
         IsCurvLabel_2                   matlab.ui.control.Label
         IsNeighLabel_2                  matlab.ui.control.Label
         prewarmingLabel                 matlab.ui.control.Label
-        SpectralTab                     matlab.ui.container.Tab
-        spect_FreqPanel                 matlab.ui.container.Panel
-        GridLayout                      matlab.ui.container.GridLayout
-        NameLabel                       matlab.ui.control.Label
-        ProcessLabel                    matlab.ui.control.Label
-        StartLabel                      matlab.ui.control.Label
-        EndLabel                        matlab.ui.control.Label
-        delta_startEditField            matlab.ui.control.NumericEditField
-        delta_endEditField              matlab.ui.control.NumericEditField
-        theta_startEditField            matlab.ui.control.NumericEditField
-        theta_endEditField              matlab.ui.control.NumericEditField
-        alpha_startEditField            matlab.ui.control.NumericEditField
-        alpha_endEditField              matlab.ui.control.NumericEditField
-        beta_startEditField             matlab.ui.control.NumericEditField
-        beta_endEditField               matlab.ui.control.NumericEditField
-        gamma1_startEditField           matlab.ui.control.NumericEditField
-        gamma1_endEditField             matlab.ui.control.NumericEditField
-        gamma2_startEditField           matlab.ui.control.NumericEditField
-        gamma2_endEditField             matlab.ui.control.NumericEditField
-        delta_runSwitch                 matlab.ui.control.Switch
-        theta_runSwitch                 matlab.ui.control.Switch
-        alpha_runSwitch                 matlab.ui.control.Switch
-        beta_runSwitch                  matlab.ui.control.Switch
-        gamma1_runSwitch                matlab.ui.control.Switch
-        gamma2_runSwitch                matlab.ui.control.Switch
-        DeltaLabel                      matlab.ui.control.Label
-        ThetaLabel                      matlab.ui.control.Label
-        AlphaLabel                      matlab.ui.control.Label
-        BetaLabel                       matlab.ui.control.Label
-        Gamma1Label                     matlab.ui.control.Label
-        Gamma2Label                     matlab.ui.control.Label
-        spect_OtherparamsPanel          matlab.ui.container.Panel
-        FreqresolutionLabel             matlab.ui.control.Label
-        spect_freq_resolEditField       matlab.ui.control.NumericEditField
-        SamplefreqLabel                 matlab.ui.control.Label
-        spect_sample_freqEditField      matlab.ui.control.NumericEditField
-        FreqmaxEditFieldLabel           matlab.ui.control.Label
-        spect_FreqmaxEditField          matlab.ui.control.NumericEditField
-        freq_gfiltvarEditFieldLabel     matlab.ui.control.Label
-        spect_freq_gfiltvarEditField    matlab.ui.control.NumericEditField
-        win_orderLabel                  matlab.ui.control.Label
-        spect_win_orderSlider           matlab.ui.control.Slider
         RunButton                       matlab.ui.control.Button
         CancelButton                    matlab.ui.control.Button
     end
@@ -945,48 +943,36 @@ classdef BC_VARETA_guide < matlab.apps.AppBase
                     app.SensorTab.Parent = [];
                     app.ActivationTab.Parent = [];
                     app.ConnectivityTab.Parent = [];
-                    app.SpectralTab.Parent = [];
                     app.SensorTab.Parent = app.TabGroup;
                     app.ActivationTab.Parent = app.TabGroup;
                     app.ConnectivityTab.Parent = app.TabGroup;
-                    app.SpectralTab.Parent = app.TabGroup;
                 case '1'
                     app.SensorTab.Parent = [];
                     app.ActivationTab.Parent = [];
                     app.ConnectivityTab.Parent = [];
-                    app.SpectralTab.Parent = [];
                     app.SensorTab.Parent = app.TabGroup;
-                    app.SpectralTab.Parent = app.TabGroup;
                 case '2'
                     app.SensorTab.Parent = [];
                     app.ActivationTab.Parent = [];
                     app.ConnectivityTab.Parent = [];
-                    app.SpectralTab.Parent = [];
                     app.ActivationTab.Parent = app.TabGroup;
-                    app.SpectralTab.Parent = app.TabGroup;
                 case '3'
                     app.SensorTab.Parent = [];
                     app.ActivationTab.Parent = [];
                     app.ConnectivityTab.Parent = [];
-                    app.SpectralTab.Parent = [];
                     app.ConnectivityTab.Parent = app.TabGroup;
-                    app.SpectralTab.Parent = app.TabGroup;
                 case '12'
                     app.SensorTab.Parent = [];
                     app.ActivationTab.Parent = [];
                     app.ConnectivityTab.Parent = [];
-                    app.SpectralTab.Parent = [];
                     app.SensorTab.Parent = app.TabGroup;
                     app.ActivationTab.Parent = app.TabGroup;
-                    app.SpectralTab.Parent = app.TabGroup;
                 case '23'
                     app.SensorTab.Parent = [];
                     app.ActivationTab.Parent = [];
                     app.ConnectivityTab.Parent = [];
-                    app.SpectralTab.Parent = [];
                     app.ActivationTab.Parent = app.TabGroup;
                     app.ConnectivityTab.Parent = app.TabGroup;
-                    app.SpectralTab.Parent = app.TabGroup;
             end
         end
 
@@ -1797,45 +1783,338 @@ classdef BC_VARETA_guide < matlab.apps.AppBase
             app.SensorTab = uitab(app.TabGroup);
             app.SensorTab.Title = 'Sensor';
 
-            % Create FieldtriptemplateDropDownLabel
-            app.FieldtriptemplateDropDownLabel = uilabel(app.SensorTab);
-            app.FieldtriptemplateDropDownLabel.HorizontalAlignment = 'right';
-            app.FieldtriptemplateDropDownLabel.Position = [20 366 101 22];
-            app.FieldtriptemplateDropDownLabel.Text = 'Fieldtrip template:';
-
-            % Create sens_FieldtriptemplateDropDown
-            app.sens_FieldtriptemplateDropDown = uidropdown(app.SensorTab);
-            app.sens_FieldtriptemplateDropDown.Items = {'--Select a layout--'};
-            app.sens_FieldtriptemplateDropDown.ValueChangedFcn = createCallbackFcn(app, @sens_FieldtriptemplateDropDownValueChanged, true);
-            app.sens_FieldtriptemplateDropDown.Position = [136 366 196 22];
-            app.sens_FieldtriptemplateDropDown.Value = '--Select a layout--';
-
             % Create sens_LayoutdescriptionPanel
             app.sens_LayoutdescriptionPanel = uipanel(app.SensorTab);
             app.sens_LayoutdescriptionPanel.Title = 'Layout description';
             app.sens_LayoutdescriptionPanel.FontWeight = 'bold';
-            app.sens_LayoutdescriptionPanel.Position = [22 18 585 334];
+            app.sens_LayoutdescriptionPanel.Position = [12 280 609 129];
 
             % Create sens_UITable
             app.sens_UITable = uitable(app.sens_LayoutdescriptionPanel);
             app.sens_UITable.ColumnName = {'No.'; 'Labels'; 'Position'; 'Width'; 'Height'};
             app.sens_UITable.ColumnWidth = {35, 'auto', 'auto', 'auto', 'auto'};
             app.sens_UITable.RowName = {};
-            app.sens_UITable.Position = [12 9 562 298];
+            app.sens_UITable.Position = [166 3 438 106];
 
             % Create RedefinelabelsButton
-            app.RedefinelabelsButton = uibutton(app.SensorTab, 'push');
+            app.RedefinelabelsButton = uibutton(app.sens_LayoutdescriptionPanel, 'push');
             app.RedefinelabelsButton.ButtonPushedFcn = createCallbackFcn(app, @RedefinelabelsButtonPushed, true);
             app.RedefinelabelsButton.FontWeight = 'bold';
-            app.RedefinelabelsButton.Position = [490 366 112 22];
+            app.RedefinelabelsButton.Position = [24 48 112 22];
             app.RedefinelabelsButton.Text = 'Redefine labels';
 
             % Create ResetlabelsButton
-            app.ResetlabelsButton = uibutton(app.SensorTab, 'push');
+            app.ResetlabelsButton = uibutton(app.sens_LayoutdescriptionPanel, 'push');
             app.ResetlabelsButton.ButtonPushedFcn = createCallbackFcn(app, @ResetlabelsButtonPushed, true);
             app.ResetlabelsButton.FontWeight = 'bold';
-            app.ResetlabelsButton.Position = [375 366 106 22];
+            app.ResetlabelsButton.Position = [25 16 112 22];
             app.ResetlabelsButton.Text = 'Reset labels';
+
+            % Create sens_FieldtriptemplateDropDown
+            app.sens_FieldtriptemplateDropDown = uidropdown(app.sens_LayoutdescriptionPanel);
+            app.sens_FieldtriptemplateDropDown.Items = {'--Select a layout--'};
+            app.sens_FieldtriptemplateDropDown.ValueChangedFcn = createCallbackFcn(app, @sens_FieldtriptemplateDropDownValueChanged, true);
+            app.sens_FieldtriptemplateDropDown.Position = [11 82 146 22];
+            app.sens_FieldtriptemplateDropDown.Value = '--Select a layout--';
+
+            % Create spect_FreqPanel
+            app.spect_FreqPanel = uipanel(app.SensorTab);
+            app.spect_FreqPanel.Title = 'Frequency bands';
+            app.spect_FreqPanel.FontWeight = 'bold';
+            app.spect_FreqPanel.Position = [12 96 610 181];
+
+            % Create GridLayout
+            app.GridLayout = uigridlayout(app.spect_FreqPanel);
+            app.GridLayout.ColumnWidth = {'1x', '1x', '1x', '1x'};
+            app.GridLayout.RowHeight = {'1x', '1x', '1x', '1x', '1x', '1x', '1x'};
+            app.GridLayout.ColumnSpacing = 5;
+            app.GridLayout.RowSpacing = 1;
+            app.GridLayout.Padding = [5 5 5 5];
+
+            % Create NameLabel
+            app.NameLabel = uilabel(app.GridLayout);
+            app.NameLabel.HorizontalAlignment = 'center';
+            app.NameLabel.FontWeight = 'bold';
+            app.NameLabel.Layout.Row = 1;
+            app.NameLabel.Layout.Column = 1;
+            app.NameLabel.Text = 'Name';
+
+            % Create ProcessLabel
+            app.ProcessLabel = uilabel(app.GridLayout);
+            app.ProcessLabel.HorizontalAlignment = 'center';
+            app.ProcessLabel.FontWeight = 'bold';
+            app.ProcessLabel.Layout.Row = 1;
+            app.ProcessLabel.Layout.Column = 2;
+            app.ProcessLabel.Text = 'Process';
+
+            % Create StartLabel
+            app.StartLabel = uilabel(app.GridLayout);
+            app.StartLabel.HorizontalAlignment = 'center';
+            app.StartLabel.FontWeight = 'bold';
+            app.StartLabel.Layout.Row = 1;
+            app.StartLabel.Layout.Column = 3;
+            app.StartLabel.Text = 'Start';
+
+            % Create EndLabel
+            app.EndLabel = uilabel(app.GridLayout);
+            app.EndLabel.HorizontalAlignment = 'center';
+            app.EndLabel.FontWeight = 'bold';
+            app.EndLabel.Layout.Row = 1;
+            app.EndLabel.Layout.Column = 4;
+            app.EndLabel.Text = 'End';
+
+            % Create delta_startEditField
+            app.delta_startEditField = uieditfield(app.GridLayout, 'numeric');
+            app.delta_startEditField.Limits = [0 4];
+            app.delta_startEditField.ValueChangedFcn = createCallbackFcn(app, @delta_startEditFieldValueChanged, true);
+            app.delta_startEditField.Layout.Row = 2;
+            app.delta_startEditField.Layout.Column = 3;
+
+            % Create delta_endEditField
+            app.delta_endEditField = uieditfield(app.GridLayout, 'numeric');
+            app.delta_endEditField.Limits = [0 4];
+            app.delta_endEditField.ValueChangedFcn = createCallbackFcn(app, @delta_endEditFieldValueChanged, true);
+            app.delta_endEditField.Layout.Row = 2;
+            app.delta_endEditField.Layout.Column = 4;
+            app.delta_endEditField.Value = 4;
+
+            % Create theta_startEditField
+            app.theta_startEditField = uieditfield(app.GridLayout, 'numeric');
+            app.theta_startEditField.Limits = [4 7];
+            app.theta_startEditField.ValueChangedFcn = createCallbackFcn(app, @theta_startEditFieldValueChanged, true);
+            app.theta_startEditField.Layout.Row = 3;
+            app.theta_startEditField.Layout.Column = 3;
+            app.theta_startEditField.Value = 4;
+
+            % Create theta_endEditField
+            app.theta_endEditField = uieditfield(app.GridLayout, 'numeric');
+            app.theta_endEditField.Limits = [4 7];
+            app.theta_endEditField.ValueChangedFcn = createCallbackFcn(app, @theta_endEditFieldValueChanged, true);
+            app.theta_endEditField.Layout.Row = 3;
+            app.theta_endEditField.Layout.Column = 4;
+            app.theta_endEditField.Value = 7;
+
+            % Create alpha_startEditField
+            app.alpha_startEditField = uieditfield(app.GridLayout, 'numeric');
+            app.alpha_startEditField.Limits = [7 14];
+            app.alpha_startEditField.ValueChangedFcn = createCallbackFcn(app, @alpha_startEditFieldValueChanged, true);
+            app.alpha_startEditField.Layout.Row = 4;
+            app.alpha_startEditField.Layout.Column = 3;
+            app.alpha_startEditField.Value = 7;
+
+            % Create alpha_endEditField
+            app.alpha_endEditField = uieditfield(app.GridLayout, 'numeric');
+            app.alpha_endEditField.Limits = [7 14];
+            app.alpha_endEditField.ValueChangedFcn = createCallbackFcn(app, @alpha_endEditFieldValueChanged, true);
+            app.alpha_endEditField.Layout.Row = 4;
+            app.alpha_endEditField.Layout.Column = 4;
+            app.alpha_endEditField.Value = 14;
+
+            % Create beta_startEditField
+            app.beta_startEditField = uieditfield(app.GridLayout, 'numeric');
+            app.beta_startEditField.Limits = [14 31];
+            app.beta_startEditField.ValueChangedFcn = createCallbackFcn(app, @beta_startEditFieldValueChanged, true);
+            app.beta_startEditField.Layout.Row = 5;
+            app.beta_startEditField.Layout.Column = 3;
+            app.beta_startEditField.Value = 14;
+
+            % Create beta_endEditField
+            app.beta_endEditField = uieditfield(app.GridLayout, 'numeric');
+            app.beta_endEditField.Limits = [14 31];
+            app.beta_endEditField.ValueChangedFcn = createCallbackFcn(app, @beta_endEditFieldValueChanged, true);
+            app.beta_endEditField.Layout.Row = 5;
+            app.beta_endEditField.Layout.Column = 4;
+            app.beta_endEditField.Value = 31;
+
+            % Create gamma1_startEditField
+            app.gamma1_startEditField = uieditfield(app.GridLayout, 'numeric');
+            app.gamma1_startEditField.Limits = [31 60];
+            app.gamma1_startEditField.ValueChangedFcn = createCallbackFcn(app, @gamma1_startEditFieldValueChanged, true);
+            app.gamma1_startEditField.Layout.Row = 6;
+            app.gamma1_startEditField.Layout.Column = 3;
+            app.gamma1_startEditField.Value = 31;
+
+            % Create gamma1_endEditField
+            app.gamma1_endEditField = uieditfield(app.GridLayout, 'numeric');
+            app.gamma1_endEditField.Limits = [31 60];
+            app.gamma1_endEditField.ValueChangedFcn = createCallbackFcn(app, @gamma1_endEditFieldValueChanged, true);
+            app.gamma1_endEditField.Layout.Row = 6;
+            app.gamma1_endEditField.Layout.Column = 4;
+            app.gamma1_endEditField.Value = 60;
+
+            % Create gamma2_startEditField
+            app.gamma2_startEditField = uieditfield(app.GridLayout, 'numeric');
+            app.gamma2_startEditField.Limits = [60 90];
+            app.gamma2_startEditField.ValueChangedFcn = createCallbackFcn(app, @gamma2_startEditFieldValueChanged, true);
+            app.gamma2_startEditField.Layout.Row = 7;
+            app.gamma2_startEditField.Layout.Column = 3;
+            app.gamma2_startEditField.Value = 60;
+
+            % Create gamma2_endEditField
+            app.gamma2_endEditField = uieditfield(app.GridLayout, 'numeric');
+            app.gamma2_endEditField.Limits = [60 90];
+            app.gamma2_endEditField.ValueChangedFcn = createCallbackFcn(app, @gamma2_endEditFieldValueChanged, true);
+            app.gamma2_endEditField.Layout.Row = 7;
+            app.gamma2_endEditField.Layout.Column = 4;
+            app.gamma2_endEditField.Value = 90;
+
+            % Create delta_runSwitch
+            app.delta_runSwitch = uiswitch(app.GridLayout, 'slider');
+            app.delta_runSwitch.Items = {'No', 'Yes'};
+            app.delta_runSwitch.ValueChangedFcn = createCallbackFcn(app, @delta_runSwitchValueChanged, true);
+            app.delta_runSwitch.Layout.Row = 2;
+            app.delta_runSwitch.Layout.Column = 2;
+            app.delta_runSwitch.Value = 'Yes';
+
+            % Create theta_runSwitch
+            app.theta_runSwitch = uiswitch(app.GridLayout, 'slider');
+            app.theta_runSwitch.Items = {'No', 'Yes'};
+            app.theta_runSwitch.ValueChangedFcn = createCallbackFcn(app, @theta_runSwitchValueChanged, true);
+            app.theta_runSwitch.Layout.Row = 3;
+            app.theta_runSwitch.Layout.Column = 2;
+            app.theta_runSwitch.Value = 'Yes';
+
+            % Create alpha_runSwitch
+            app.alpha_runSwitch = uiswitch(app.GridLayout, 'slider');
+            app.alpha_runSwitch.Items = {'No', 'Yes'};
+            app.alpha_runSwitch.ValueChangedFcn = createCallbackFcn(app, @alpha_runSwitchValueChanged, true);
+            app.alpha_runSwitch.Layout.Row = 4;
+            app.alpha_runSwitch.Layout.Column = 2;
+            app.alpha_runSwitch.Value = 'Yes';
+
+            % Create beta_runSwitch
+            app.beta_runSwitch = uiswitch(app.GridLayout, 'slider');
+            app.beta_runSwitch.Items = {'No', 'Yes'};
+            app.beta_runSwitch.ValueChangedFcn = createCallbackFcn(app, @beta_runSwitchValueChanged, true);
+            app.beta_runSwitch.Layout.Row = 5;
+            app.beta_runSwitch.Layout.Column = 2;
+            app.beta_runSwitch.Value = 'Yes';
+
+            % Create gamma1_runSwitch
+            app.gamma1_runSwitch = uiswitch(app.GridLayout, 'slider');
+            app.gamma1_runSwitch.Items = {'No', 'Yes'};
+            app.gamma1_runSwitch.ValueChangedFcn = createCallbackFcn(app, @gamma1_runSwitchValueChanged, true);
+            app.gamma1_runSwitch.Layout.Row = 6;
+            app.gamma1_runSwitch.Layout.Column = 2;
+            app.gamma1_runSwitch.Value = 'Yes';
+
+            % Create gamma2_runSwitch
+            app.gamma2_runSwitch = uiswitch(app.GridLayout, 'slider');
+            app.gamma2_runSwitch.Items = {'No', 'Yes'};
+            app.gamma2_runSwitch.ValueChangedFcn = createCallbackFcn(app, @gamma2_runSwitchValueChanged, true);
+            app.gamma2_runSwitch.Layout.Row = 7;
+            app.gamma2_runSwitch.Layout.Column = 2;
+            app.gamma2_runSwitch.Value = 'Yes';
+
+            % Create DeltaLabel
+            app.DeltaLabel = uilabel(app.GridLayout);
+            app.DeltaLabel.HorizontalAlignment = 'center';
+            app.DeltaLabel.Layout.Row = 2;
+            app.DeltaLabel.Layout.Column = 1;
+            app.DeltaLabel.Text = 'Delta';
+
+            % Create ThetaLabel
+            app.ThetaLabel = uilabel(app.GridLayout);
+            app.ThetaLabel.HorizontalAlignment = 'center';
+            app.ThetaLabel.Layout.Row = 3;
+            app.ThetaLabel.Layout.Column = 1;
+            app.ThetaLabel.Text = 'Theta';
+
+            % Create AlphaLabel
+            app.AlphaLabel = uilabel(app.GridLayout);
+            app.AlphaLabel.HorizontalAlignment = 'center';
+            app.AlphaLabel.Layout.Row = 4;
+            app.AlphaLabel.Layout.Column = 1;
+            app.AlphaLabel.Text = 'Alpha';
+
+            % Create BetaLabel
+            app.BetaLabel = uilabel(app.GridLayout);
+            app.BetaLabel.HorizontalAlignment = 'center';
+            app.BetaLabel.Layout.Row = 5;
+            app.BetaLabel.Layout.Column = 1;
+            app.BetaLabel.Text = 'Beta';
+
+            % Create Gamma1Label
+            app.Gamma1Label = uilabel(app.GridLayout);
+            app.Gamma1Label.HorizontalAlignment = 'center';
+            app.Gamma1Label.Layout.Row = 6;
+            app.Gamma1Label.Layout.Column = 1;
+            app.Gamma1Label.Text = 'Gamma1';
+
+            % Create Gamma2Label
+            app.Gamma2Label = uilabel(app.GridLayout);
+            app.Gamma2Label.HorizontalAlignment = 'center';
+            app.Gamma2Label.Layout.Row = 7;
+            app.Gamma2Label.Layout.Column = 1;
+            app.Gamma2Label.Text = 'Gamma2';
+
+            % Create spect_OtherparamsPanel
+            app.spect_OtherparamsPanel = uipanel(app.SensorTab);
+            app.spect_OtherparamsPanel.Title = 'Other params';
+            app.spect_OtherparamsPanel.FontWeight = 'bold';
+            app.spect_OtherparamsPanel.Position = [12 3 610 92];
+
+            % Create FreqresolutionLabel
+            app.FreqresolutionLabel = uilabel(app.spect_OtherparamsPanel);
+            app.FreqresolutionLabel.HorizontalAlignment = 'right';
+            app.FreqresolutionLabel.Position = [24 40 89 22];
+            app.FreqresolutionLabel.Text = 'Freq resolution:';
+
+            % Create spect_freq_resolEditField
+            app.spect_freq_resolEditField = uieditfield(app.spect_OtherparamsPanel, 'numeric');
+            app.spect_freq_resolEditField.Limits = [0.1 1];
+            app.spect_freq_resolEditField.Position = [121 40 43 22];
+            app.spect_freq_resolEditField.Value = 0.5;
+
+            % Create SamplefreqLabel
+            app.SamplefreqLabel = uilabel(app.spect_OtherparamsPanel);
+            app.SamplefreqLabel.HorizontalAlignment = 'right';
+            app.SamplefreqLabel.Position = [245 40 74 22];
+            app.SamplefreqLabel.Text = 'Sample freq:';
+
+            % Create spect_sample_freqEditField
+            app.spect_sample_freqEditField = uieditfield(app.spect_OtherparamsPanel, 'numeric');
+            app.spect_sample_freqEditField.Limits = [200 600];
+            app.spect_sample_freqEditField.Position = [325 40 38 22];
+            app.spect_sample_freqEditField.Value = 200;
+
+            % Create FreqmaxEditFieldLabel
+            app.FreqmaxEditFieldLabel = uilabel(app.spect_OtherparamsPanel);
+            app.FreqmaxEditFieldLabel.HorizontalAlignment = 'right';
+            app.FreqmaxEditFieldLabel.Position = [257 6 60 22];
+            app.FreqmaxEditFieldLabel.Text = 'Freq max:';
+
+            % Create spect_FreqmaxEditField
+            app.spect_FreqmaxEditField = uieditfield(app.spect_OtherparamsPanel, 'numeric');
+            app.spect_FreqmaxEditField.Limits = [0 90];
+            app.spect_FreqmaxEditField.Position = [325 6 38 22];
+            app.spect_FreqmaxEditField.Value = 90;
+
+            % Create freq_gfiltvarEditFieldLabel
+            app.freq_gfiltvarEditFieldLabel = uilabel(app.spect_OtherparamsPanel);
+            app.freq_gfiltvarEditFieldLabel.HorizontalAlignment = 'right';
+            app.freq_gfiltvarEditFieldLabel.Position = [40 7 72 22];
+            app.freq_gfiltvarEditFieldLabel.Text = 'freq_gfiltvar:';
+
+            % Create spect_freq_gfiltvarEditField
+            app.spect_freq_gfiltvarEditField = uieditfield(app.spect_OtherparamsPanel, 'numeric');
+            app.spect_freq_gfiltvarEditField.Limits = [0.1 3];
+            app.spect_freq_gfiltvarEditField.Position = [119 7 45 22];
+            app.spect_freq_gfiltvarEditField.Value = 0.5;
+
+            % Create win_orderLabel
+            app.win_orderLabel = uilabel(app.spect_OtherparamsPanel);
+            app.win_orderLabel.HorizontalAlignment = 'right';
+            app.win_orderLabel.Position = [439 27 62 22];
+            app.win_orderLabel.Text = 'win_order:';
+
+            % Create spect_win_orderSlider
+            app.spect_win_orderSlider = uislider(app.spect_OtherparamsPanel);
+            app.spect_win_orderSlider.Limits = [1 3];
+            app.spect_win_orderSlider.MajorTicks = [1 2 3];
+            app.spect_win_orderSlider.MinorTicks = [1 2 3];
+            app.spect_win_orderSlider.Position = [514 45 47 3];
+            app.spect_win_orderSlider.Value = 1;
 
             % Create ActivationTab
             app.ActivationTab = uitab(app.TabGroup);
@@ -2359,306 +2638,6 @@ classdef BC_VARETA_guide < matlab.apps.AppBase
             app.prewarmingLabel = uilabel(app.conn_OtherparamsPanel);
             app.prewarmingLabel.Position = [381 219 72 22];
             app.prewarmingLabel.Text = 'prewarming:';
-
-            % Create SpectralTab
-            app.SpectralTab = uitab(app.TabGroup);
-            app.SpectralTab.Title = 'Spectral';
-
-            % Create spect_FreqPanel
-            app.spect_FreqPanel = uipanel(app.SpectralTab);
-            app.spect_FreqPanel.Title = 'Frequency bands';
-            app.spect_FreqPanel.FontWeight = 'bold';
-            app.spect_FreqPanel.Position = [33 150 568 244];
-
-            % Create GridLayout
-            app.GridLayout = uigridlayout(app.spect_FreqPanel);
-            app.GridLayout.ColumnWidth = {'1x', '1x', '1x', '1x'};
-            app.GridLayout.RowHeight = {'1x', '1x', '1x', '1x', '1x', '1x', '1x'};
-
-            % Create NameLabel
-            app.NameLabel = uilabel(app.GridLayout);
-            app.NameLabel.HorizontalAlignment = 'center';
-            app.NameLabel.FontWeight = 'bold';
-            app.NameLabel.Layout.Row = 1;
-            app.NameLabel.Layout.Column = 1;
-            app.NameLabel.Text = 'Name';
-
-            % Create ProcessLabel
-            app.ProcessLabel = uilabel(app.GridLayout);
-            app.ProcessLabel.HorizontalAlignment = 'center';
-            app.ProcessLabel.FontWeight = 'bold';
-            app.ProcessLabel.Layout.Row = 1;
-            app.ProcessLabel.Layout.Column = 2;
-            app.ProcessLabel.Text = 'Process';
-
-            % Create StartLabel
-            app.StartLabel = uilabel(app.GridLayout);
-            app.StartLabel.HorizontalAlignment = 'center';
-            app.StartLabel.FontWeight = 'bold';
-            app.StartLabel.Layout.Row = 1;
-            app.StartLabel.Layout.Column = 3;
-            app.StartLabel.Text = 'Start';
-
-            % Create EndLabel
-            app.EndLabel = uilabel(app.GridLayout);
-            app.EndLabel.HorizontalAlignment = 'center';
-            app.EndLabel.FontWeight = 'bold';
-            app.EndLabel.Layout.Row = 1;
-            app.EndLabel.Layout.Column = 4;
-            app.EndLabel.Text = 'End';
-
-            % Create delta_startEditField
-            app.delta_startEditField = uieditfield(app.GridLayout, 'numeric');
-            app.delta_startEditField.Limits = [0 4];
-            app.delta_startEditField.ValueChangedFcn = createCallbackFcn(app, @delta_startEditFieldValueChanged, true);
-            app.delta_startEditField.Layout.Row = 2;
-            app.delta_startEditField.Layout.Column = 3;
-
-            % Create delta_endEditField
-            app.delta_endEditField = uieditfield(app.GridLayout, 'numeric');
-            app.delta_endEditField.Limits = [0 4];
-            app.delta_endEditField.ValueChangedFcn = createCallbackFcn(app, @delta_endEditFieldValueChanged, true);
-            app.delta_endEditField.Layout.Row = 2;
-            app.delta_endEditField.Layout.Column = 4;
-            app.delta_endEditField.Value = 4;
-
-            % Create theta_startEditField
-            app.theta_startEditField = uieditfield(app.GridLayout, 'numeric');
-            app.theta_startEditField.Limits = [4 7];
-            app.theta_startEditField.ValueChangedFcn = createCallbackFcn(app, @theta_startEditFieldValueChanged, true);
-            app.theta_startEditField.Layout.Row = 3;
-            app.theta_startEditField.Layout.Column = 3;
-            app.theta_startEditField.Value = 4;
-
-            % Create theta_endEditField
-            app.theta_endEditField = uieditfield(app.GridLayout, 'numeric');
-            app.theta_endEditField.Limits = [4 7];
-            app.theta_endEditField.ValueChangedFcn = createCallbackFcn(app, @theta_endEditFieldValueChanged, true);
-            app.theta_endEditField.Layout.Row = 3;
-            app.theta_endEditField.Layout.Column = 4;
-            app.theta_endEditField.Value = 7;
-
-            % Create alpha_startEditField
-            app.alpha_startEditField = uieditfield(app.GridLayout, 'numeric');
-            app.alpha_startEditField.Limits = [7 14];
-            app.alpha_startEditField.ValueChangedFcn = createCallbackFcn(app, @alpha_startEditFieldValueChanged, true);
-            app.alpha_startEditField.Layout.Row = 4;
-            app.alpha_startEditField.Layout.Column = 3;
-            app.alpha_startEditField.Value = 7;
-
-            % Create alpha_endEditField
-            app.alpha_endEditField = uieditfield(app.GridLayout, 'numeric');
-            app.alpha_endEditField.Limits = [7 14];
-            app.alpha_endEditField.ValueChangedFcn = createCallbackFcn(app, @alpha_endEditFieldValueChanged, true);
-            app.alpha_endEditField.Layout.Row = 4;
-            app.alpha_endEditField.Layout.Column = 4;
-            app.alpha_endEditField.Value = 14;
-
-            % Create beta_startEditField
-            app.beta_startEditField = uieditfield(app.GridLayout, 'numeric');
-            app.beta_startEditField.Limits = [14 31];
-            app.beta_startEditField.ValueChangedFcn = createCallbackFcn(app, @beta_startEditFieldValueChanged, true);
-            app.beta_startEditField.Layout.Row = 5;
-            app.beta_startEditField.Layout.Column = 3;
-            app.beta_startEditField.Value = 14;
-
-            % Create beta_endEditField
-            app.beta_endEditField = uieditfield(app.GridLayout, 'numeric');
-            app.beta_endEditField.Limits = [14 31];
-            app.beta_endEditField.ValueChangedFcn = createCallbackFcn(app, @beta_endEditFieldValueChanged, true);
-            app.beta_endEditField.Layout.Row = 5;
-            app.beta_endEditField.Layout.Column = 4;
-            app.beta_endEditField.Value = 31;
-
-            % Create gamma1_startEditField
-            app.gamma1_startEditField = uieditfield(app.GridLayout, 'numeric');
-            app.gamma1_startEditField.Limits = [31 60];
-            app.gamma1_startEditField.ValueChangedFcn = createCallbackFcn(app, @gamma1_startEditFieldValueChanged, true);
-            app.gamma1_startEditField.Layout.Row = 6;
-            app.gamma1_startEditField.Layout.Column = 3;
-            app.gamma1_startEditField.Value = 31;
-
-            % Create gamma1_endEditField
-            app.gamma1_endEditField = uieditfield(app.GridLayout, 'numeric');
-            app.gamma1_endEditField.Limits = [31 60];
-            app.gamma1_endEditField.ValueChangedFcn = createCallbackFcn(app, @gamma1_endEditFieldValueChanged, true);
-            app.gamma1_endEditField.Layout.Row = 6;
-            app.gamma1_endEditField.Layout.Column = 4;
-            app.gamma1_endEditField.Value = 60;
-
-            % Create gamma2_startEditField
-            app.gamma2_startEditField = uieditfield(app.GridLayout, 'numeric');
-            app.gamma2_startEditField.Limits = [60 90];
-            app.gamma2_startEditField.ValueChangedFcn = createCallbackFcn(app, @gamma2_startEditFieldValueChanged, true);
-            app.gamma2_startEditField.Layout.Row = 7;
-            app.gamma2_startEditField.Layout.Column = 3;
-            app.gamma2_startEditField.Value = 60;
-
-            % Create gamma2_endEditField
-            app.gamma2_endEditField = uieditfield(app.GridLayout, 'numeric');
-            app.gamma2_endEditField.Limits = [60 90];
-            app.gamma2_endEditField.ValueChangedFcn = createCallbackFcn(app, @gamma2_endEditFieldValueChanged, true);
-            app.gamma2_endEditField.Layout.Row = 7;
-            app.gamma2_endEditField.Layout.Column = 4;
-            app.gamma2_endEditField.Value = 90;
-
-            % Create delta_runSwitch
-            app.delta_runSwitch = uiswitch(app.GridLayout, 'slider');
-            app.delta_runSwitch.Items = {'No', 'Yes'};
-            app.delta_runSwitch.ValueChangedFcn = createCallbackFcn(app, @delta_runSwitchValueChanged, true);
-            app.delta_runSwitch.Layout.Row = 2;
-            app.delta_runSwitch.Layout.Column = 2;
-            app.delta_runSwitch.Value = 'Yes';
-
-            % Create theta_runSwitch
-            app.theta_runSwitch = uiswitch(app.GridLayout, 'slider');
-            app.theta_runSwitch.Items = {'No', 'Yes'};
-            app.theta_runSwitch.ValueChangedFcn = createCallbackFcn(app, @theta_runSwitchValueChanged, true);
-            app.theta_runSwitch.Layout.Row = 3;
-            app.theta_runSwitch.Layout.Column = 2;
-            app.theta_runSwitch.Value = 'Yes';
-
-            % Create alpha_runSwitch
-            app.alpha_runSwitch = uiswitch(app.GridLayout, 'slider');
-            app.alpha_runSwitch.Items = {'No', 'Yes'};
-            app.alpha_runSwitch.ValueChangedFcn = createCallbackFcn(app, @alpha_runSwitchValueChanged, true);
-            app.alpha_runSwitch.Layout.Row = 4;
-            app.alpha_runSwitch.Layout.Column = 2;
-            app.alpha_runSwitch.Value = 'Yes';
-
-            % Create beta_runSwitch
-            app.beta_runSwitch = uiswitch(app.GridLayout, 'slider');
-            app.beta_runSwitch.Items = {'No', 'Yes'};
-            app.beta_runSwitch.ValueChangedFcn = createCallbackFcn(app, @beta_runSwitchValueChanged, true);
-            app.beta_runSwitch.Layout.Row = 5;
-            app.beta_runSwitch.Layout.Column = 2;
-            app.beta_runSwitch.Value = 'Yes';
-
-            % Create gamma1_runSwitch
-            app.gamma1_runSwitch = uiswitch(app.GridLayout, 'slider');
-            app.gamma1_runSwitch.Items = {'No', 'Yes'};
-            app.gamma1_runSwitch.ValueChangedFcn = createCallbackFcn(app, @gamma1_runSwitchValueChanged, true);
-            app.gamma1_runSwitch.Layout.Row = 6;
-            app.gamma1_runSwitch.Layout.Column = 2;
-            app.gamma1_runSwitch.Value = 'Yes';
-
-            % Create gamma2_runSwitch
-            app.gamma2_runSwitch = uiswitch(app.GridLayout, 'slider');
-            app.gamma2_runSwitch.Items = {'No', 'Yes'};
-            app.gamma2_runSwitch.ValueChangedFcn = createCallbackFcn(app, @gamma2_runSwitchValueChanged, true);
-            app.gamma2_runSwitch.Layout.Row = 7;
-            app.gamma2_runSwitch.Layout.Column = 2;
-            app.gamma2_runSwitch.Value = 'Yes';
-
-            % Create DeltaLabel
-            app.DeltaLabel = uilabel(app.GridLayout);
-            app.DeltaLabel.HorizontalAlignment = 'center';
-            app.DeltaLabel.Layout.Row = 2;
-            app.DeltaLabel.Layout.Column = 1;
-            app.DeltaLabel.Text = 'Delta';
-
-            % Create ThetaLabel
-            app.ThetaLabel = uilabel(app.GridLayout);
-            app.ThetaLabel.HorizontalAlignment = 'center';
-            app.ThetaLabel.Layout.Row = 3;
-            app.ThetaLabel.Layout.Column = 1;
-            app.ThetaLabel.Text = 'Theta';
-
-            % Create AlphaLabel
-            app.AlphaLabel = uilabel(app.GridLayout);
-            app.AlphaLabel.HorizontalAlignment = 'center';
-            app.AlphaLabel.Layout.Row = 4;
-            app.AlphaLabel.Layout.Column = 1;
-            app.AlphaLabel.Text = 'Alpha';
-
-            % Create BetaLabel
-            app.BetaLabel = uilabel(app.GridLayout);
-            app.BetaLabel.HorizontalAlignment = 'center';
-            app.BetaLabel.Layout.Row = 5;
-            app.BetaLabel.Layout.Column = 1;
-            app.BetaLabel.Text = 'Beta';
-
-            % Create Gamma1Label
-            app.Gamma1Label = uilabel(app.GridLayout);
-            app.Gamma1Label.HorizontalAlignment = 'center';
-            app.Gamma1Label.Layout.Row = 6;
-            app.Gamma1Label.Layout.Column = 1;
-            app.Gamma1Label.Text = 'Gamma1';
-
-            % Create Gamma2Label
-            app.Gamma2Label = uilabel(app.GridLayout);
-            app.Gamma2Label.HorizontalAlignment = 'center';
-            app.Gamma2Label.Layout.Row = 7;
-            app.Gamma2Label.Layout.Column = 1;
-            app.Gamma2Label.Text = 'Gamma2';
-
-            % Create spect_OtherparamsPanel
-            app.spect_OtherparamsPanel = uipanel(app.SpectralTab);
-            app.spect_OtherparamsPanel.Title = 'Other params';
-            app.spect_OtherparamsPanel.FontWeight = 'bold';
-            app.spect_OtherparamsPanel.Position = [33 15 568 121];
-
-            % Create FreqresolutionLabel
-            app.FreqresolutionLabel = uilabel(app.spect_OtherparamsPanel);
-            app.FreqresolutionLabel.HorizontalAlignment = 'right';
-            app.FreqresolutionLabel.Position = [24 59 89 22];
-            app.FreqresolutionLabel.Text = 'Freq resolution:';
-
-            % Create spect_freq_resolEditField
-            app.spect_freq_resolEditField = uieditfield(app.spect_OtherparamsPanel, 'numeric');
-            app.spect_freq_resolEditField.Limits = [0.1 1];
-            app.spect_freq_resolEditField.Position = [121 59 43 22];
-            app.spect_freq_resolEditField.Value = 0.5;
-
-            % Create SamplefreqLabel
-            app.SamplefreqLabel = uilabel(app.spect_OtherparamsPanel);
-            app.SamplefreqLabel.HorizontalAlignment = 'right';
-            app.SamplefreqLabel.Position = [225 59 74 22];
-            app.SamplefreqLabel.Text = 'Sample freq:';
-
-            % Create spect_sample_freqEditField
-            app.spect_sample_freqEditField = uieditfield(app.spect_OtherparamsPanel, 'numeric');
-            app.spect_sample_freqEditField.Limits = [200 600];
-            app.spect_sample_freqEditField.Position = [305 59 38 22];
-            app.spect_sample_freqEditField.Value = 200;
-
-            % Create FreqmaxEditFieldLabel
-            app.FreqmaxEditFieldLabel = uilabel(app.spect_OtherparamsPanel);
-            app.FreqmaxEditFieldLabel.HorizontalAlignment = 'right';
-            app.FreqmaxEditFieldLabel.Position = [237 19 60 22];
-            app.FreqmaxEditFieldLabel.Text = 'Freq max:';
-
-            % Create spect_FreqmaxEditField
-            app.spect_FreqmaxEditField = uieditfield(app.spect_OtherparamsPanel, 'numeric');
-            app.spect_FreqmaxEditField.Limits = [0 90];
-            app.spect_FreqmaxEditField.Position = [305 19 38 22];
-            app.spect_FreqmaxEditField.Value = 90;
-
-            % Create freq_gfiltvarEditFieldLabel
-            app.freq_gfiltvarEditFieldLabel = uilabel(app.spect_OtherparamsPanel);
-            app.freq_gfiltvarEditFieldLabel.HorizontalAlignment = 'right';
-            app.freq_gfiltvarEditFieldLabel.Position = [40 20 72 22];
-            app.freq_gfiltvarEditFieldLabel.Text = 'freq_gfiltvar:';
-
-            % Create spect_freq_gfiltvarEditField
-            app.spect_freq_gfiltvarEditField = uieditfield(app.spect_OtherparamsPanel, 'numeric');
-            app.spect_freq_gfiltvarEditField.Limits = [0.1 3];
-            app.spect_freq_gfiltvarEditField.Position = [119 20 45 22];
-            app.spect_freq_gfiltvarEditField.Value = 0.5;
-
-            % Create win_orderLabel
-            app.win_orderLabel = uilabel(app.spect_OtherparamsPanel);
-            app.win_orderLabel.HorizontalAlignment = 'right';
-            app.win_orderLabel.Position = [396 41 62 22];
-            app.win_orderLabel.Text = 'win_order:';
-
-            % Create spect_win_orderSlider
-            app.spect_win_orderSlider = uislider(app.spect_OtherparamsPanel);
-            app.spect_win_orderSlider.Limits = [1 3];
-            app.spect_win_orderSlider.MajorTicks = [1 2 3];
-            app.spect_win_orderSlider.MinorTicks = [1 2 3];
-            app.spect_win_orderSlider.Position = [471 59 47 3];
-            app.spect_win_orderSlider.Value = 1;
 
             % Create RunButton
             app.RunButton = uibutton(app.BCVARETAToolboxv10UIFigure, 'push');
